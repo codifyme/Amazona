@@ -9,8 +9,8 @@ export default data = {
         brand:'Nike',
         rating:4.5,
         numReviews:10
-    },
-    {
+        },
+        {
         _id:'2',
         name:'Fit Shirt',
         category:'Shirts',
@@ -19,8 +19,8 @@ export default data = {
         brand:'Nike',
         rating:4.2,
         numReviews:9
-    },
-    {
+        },
+        {
         _id:'3',
         name:'Best Pants',
         category:'Pants',
@@ -29,6 +29,6 @@ export default data = {
         brand:'Nike',
         rating:4.6,
         numReviews:8
-    },
-]
+        },
+    ]
 }
