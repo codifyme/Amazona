@@ -44,26 +44,24 @@ app.post('api/courses', (req,res)=>{
 	};
 
 	const result=Joi.validate(req.body, schema);
-	console.log(result);
+	
 
-	if(!req.body.name || req.body.name.length<3){
+	// if(!req.body.name || req.body.name.length<3){
+		if(result.error){
 		//400 bad request
-		res.status(400).send('Name is required and should be minimun 3 characters');
+		res.status(400).send(result.error);
 		return;
 	}
 
 	const course={
 		id:courses.length +1,
+		
 		name:req.body.name
 	};
 	courses.push(course);
 	res.send(course);
 })
 //INPUT VALIDATION
-
-
-
-
 
 //PORT ENVIROMENT VARIABLE
 const port=process.env.PORT ||5000;
