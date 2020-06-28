@@ -1,7 +1,12 @@
 import express from 'express';
 import data from './data';
 
+
 const app = express();
+// const Joi=require('joi');
+app.use(express.json());
+
+
 const courses=[
 	{id:1, name:'course1'},
 	{id:2, name:'course2'},
@@ -25,21 +30,30 @@ app.get('/api/posts/:year/:month',(req,res)=>{
 app.get('/api/posts/:year/:month',(req,res)=>{
 	res.send(req.query);
 });
-//single course
 app.get('/api/courses/:id', (req,res)=>{
 	const course=courses.find(c=> c.id ===parseInt(req.params.id));
 	if(!course) res.status(404).send('The course with given ID was not found.'); //404 object not found
 	res.send(course);
 });
-//handling POST request
-app.post('/api/courses', (req, res)=>{
+//HANDLING POST
+app.post('api/courses', (req,res)=>{
+	if(!req.body.name || req.body.name.length<3){
+		//400 bad request
+		res.status(400).send('Name is required and should be minimun 3 characters');
+		return;
+	}
+
 	const course={
 		id:courses.length +1,
 		name:req.body.name
 	};
 	courses.push(course);
 	res.send(course);
-});
+})
+//INPUT VALIDATION
+
+
+
 
 
 //PORT ENVIROMENT VARIABLE
