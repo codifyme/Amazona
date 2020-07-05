@@ -54,7 +54,6 @@ app.post('api/courses', (req,res)=>{
 	}
 	const course={
 		id:courses.length +1,
-
 		name:req.body.name
 	};
 	courses.push(course);
@@ -62,8 +61,33 @@ app.post('api/courses', (req,res)=>{
 });
 //Handling PUT Requests
 app.put('/api/courses/:id', (req, res)=>{
-
+//Look up the course
+//If the course doesnt exist, return 404
+const course=courses.find(c=> c.id ===parseInt(req.params.id));
+	if(!course) res.status(404).send('The course with given ID was not found.'); //404 object not found
+	res.send(course);
+//otherwise, if that is not a valid course or INVALID, will return 400 - Bad request
+//Update the course
+const schema={
+	name:Joi.string().min(3).required()
+};
+const result=Joi.validateCourse(req.body, schema);
+if(result.error){
+	//400 bad request
+	res.status(400).send(result.error.details[0].message);
+	return;
+}
+//UPpdate course
+course.name=req.body.name;
+//return the update course
+res.send(course);
 });
+function validateCourse(course){
+	const schema={
+		name:Joi.string().min(3).required()
+	};
+	return Joi.validate(course, schema);
+}
 
 //PORT ENVIROMENT VARIABLE
 const port=process.env.PORT ||5000;
