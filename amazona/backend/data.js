@@ -30,5 +30,15 @@ export const data={
         rating:4.6,
         numReviews:8
     },
+    {
+        _id:'4',
+        name:'slim Pants',
+        category:'Pants',
+        image:'/images/shirt1.jpg',
+        price:80,
+        brand:'Lewis',
+        rating:4.8,
+        numReviews:9
+    },
 ]
 }
